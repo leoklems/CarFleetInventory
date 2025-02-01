@@ -1,4 +1,4 @@
-@import "tailwindcss";
+
 @font-face {
   font-family: 'normal';
   src: url('fonts/Objectivity-Regular.woff2') format('woff2');
@@ -1024,3 +1024,4 @@ a.active {
     grid-template-columns: 1fr;
 }
 }
+@import "tailwindcss";

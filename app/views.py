@@ -221,8 +221,8 @@ class StaffView(LoginRequiredMixin, View):
 
 
 
-class StaffProfileView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    permission_required = 'app.view_staff'
+class StaffProfileView(LoginRequiredMixin, DetailView):
+    # permission_required = 'app.view_staff'
     model = Staff
     template_name = 'staff_profile.html'
     slug_field = 'uid'
@@ -311,8 +311,8 @@ class ServiceRecordView(LoginRequiredMixin, View):
 
         return render(self.request, 'services.html', context)
 
-class ServiceRecordDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    permission_required = 'app.view_project'
+class ServiceRecordDetailView(LoginRequiredMixin, DetailView):
+    # permission_required = 'app.view_project'
     model = ServiceRecord
     template_name = 'service-details.html'
 
