@@ -1,0 +1,17 @@
+<!-- Modal container -->
+<div id="add-staff-container" class="modal-container">
+    <!-- Modal content -->
+    <div class="modal-content small-modal">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h2>Check Out</h2>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="one_col">
+            <div >Are you sure you want to checkout {{staff.name}}?</div>
+            <a class="delete" href="{% url 'app:staff_checkout_confirm' staff.a_id %}" hx-get="{% url 'app:staff_checkout_confirm' staff.a_id %}" hx-push-url=true hx-target="body" hx-swap="innerHTML">yes  <i class="fas fa-forward"></i></a>
+      </div>
+    </div>
+  </div>

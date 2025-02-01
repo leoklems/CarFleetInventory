@@ -1,0 +1,80 @@
+{% extends 'forms/main.html' %}
+{% load static %}
+{% block title %}Add Staff{% endblock %}
+
+{% block content %}
+<div id="add-project-container" class="flex fixed bg-black justify-center left-0 right-0 w-full">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h2>Add Car</h2>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="two_col">
+                <div class="one_col">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="one_col">
+                    <label for="serial_number">Serial number:</label>
+                    <input type="text" id="serial_number" name="serial_number">
+                </div>
+            </div>
+            <div class="two_col">
+                <div class="one_col">
+                    <label for="date_started">Year Purchased:</label>
+                    <input type="number" id="year_purchased" name="year_purchased">
+                </div>
+                
+                <div class="one_col">
+                    <label for="year_alloted">Year Alloted:</label>
+                    <input type="number" id="year_alloted" name="year_alloted">
+                </div>
+            </div>
+            <div class="one_col">
+                <label for="agency">Agency:</label>
+                <input type="text" id="agency" name="agency">
+            </div>
+            <div class="one_col">
+                <label for="location_of_deployment">Location</label>
+                <input type="text" id="location_of_deployment" name="location_of_deployment">
+            </div>
+            <div class="one_col">
+                <label for="description">Description:</label>
+                <!-- <input type="text" name=> -->
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="two_col">
+                <div class="one_col">
+                    <label for="lead">Tracker Status</label>
+                    {{form.tracker_status}}
+                    <!-- <select name="tracker_status">
+                        <option value="" >--</option>
+                        <option value="Active">Active</option>
+                        <option value="Not Active">Not Active</option>
+                    </select> -->
+                </div>
+                <div class="one_col">
+                    <label for="type">Serviceability</label>
+                    {{form.serviceability}}
+                    <!-- <select name ="serviceability">
+                        <option value="" >--</option>
+                        <option value="Serviceable">Serviceable</option>
+                        <option value="Not Serviceable">Not Serviceable</option>
+                    </select> -->
+                </div>
+            </div>
+            <div class="one_col">
+                <input type="submit" value="Save" class="bg-green-600 rounded px-4 py-2">
+            </div>
+            
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock  %}

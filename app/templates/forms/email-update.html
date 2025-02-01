@@ -1,0 +1,26 @@
+<!-- Modal container -->
+<div id="edit-stuff-container" class="modal-container">
+    <!-- Modal content -->
+    <div class="modal-content small-modal">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h2>Change Email Address</h2>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="post" hx-post="{% url 'app:change_email' object.id %}" hx-redirect="{% url 'app:staff_profile' object.staff_user.uid %}" hx-target="body" hx-swap="innerHTML">
+            {% csrf_token %}
+            <div class="one_col">
+                <label for="type">New Email</label>
+                {{form.email}}
+            </div>
+            
+            <div class="one_col">
+                <input type="submit" value="Save">
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </div>

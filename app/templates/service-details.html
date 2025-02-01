@@ -1,0 +1,86 @@
+{% extends 'detail-main.html' %}
+{% load static %}
+{% block title %}{{object.title}}'s details{% endblock %}
+
+{% block content %}
+<section class="main_body" id="main_body">
+    <div id="checkin-staff-container" class="modal-container-staff">
+        <!-- Modal content -->
+         
+        <div class="modal-content">
+          <!-- Modal body -->
+            <div class="object_details_container">
+                <header class="object_detail_header_container">
+                    <caption class="dp_container">
+                        Service Details
+                    </caption>
+                    <!-- <div class="staff_special_details">
+                        <span>OC3475</span>
+                    </div> -->
+                </header>
+                <section class="object_details_container_body">
+                    <article>
+                        <div class="caption">Service Vehicle</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.vehicle}}</span>
+                            <span 
+                            class="edit" href="{% url 'app:home' %}" ><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    
+                    <article>
+                        <div class="caption">Service Date</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.service_date}}</span>
+                            <span class="edit"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article class="detail_description_container">
+                        <div class="caption">Next service date</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.next_service_date}}</span>
+                            <span><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Type</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.type}}</span>
+                            <span><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Overhaul Date</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.overnaul_date}}</span>
+                            <span><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Next Overhaul Date</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.next_overnaul_date}}</span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Cost</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.cost}}</span>
+                            <span class="edit"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Was it scheduled?</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.scheduled}}</span>
+                            <span class="edit"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                </section>
+                <div id="edit-stuff-container" class="modal-container"></div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock  %}

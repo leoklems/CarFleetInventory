@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: >
+      sh -c "python /code/manage.py makemigrations && 
+             python /code/manage.py migrate && 
+             python /code/manage.py collectstatic --noinput && 
+             python /code/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+      - sqlite_data:/code/db/
+    ports:
+      - 8000:8000
+volumes:
+  sqlite_data:

@@ -1,0 +1,43 @@
+<!-- Modal container -->
+<div id="edit-stuff-container" class="modal-container">
+    <!-- Modal content -->
+    <div class="modal-content small-modal">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h2>Update Income</h2>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="post" hx-post="{% url 'app:change_income' object.id %}" hx-redirect="{% url 'app:project_detail' object.id %}" hx-target="body" hx-swap="innerHTML">
+            {% csrf_token %}
+        <!-- <form hx-redirect="index.html"> -->
+            <div class="one_col">
+                <label for="title">Title</label>
+                <!-- <input type="date" id="date_started" name="date_started" value="{{object.date_started}}"> -->
+                {{form.title}}
+            </div>
+            <div class="one_col">
+                <label for="details">Details</label>
+                {{form.details}}
+            </div>
+            <div class="one_col">
+                <label for="project">Project</label>
+                {{form.project}}
+            </div>
+            <div class="one_col">
+                <label for="amount">Amount</label>
+                {{form.amount}}
+            </div>
+            <div class="one_col">
+                <label for="date">Date</label>
+                {{form.date}}
+            </div>
+            <div class="one_col">
+                <input type="submit" value="Save">
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </div>

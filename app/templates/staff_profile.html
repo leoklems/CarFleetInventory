@@ -1,0 +1,75 @@
+{% extends 'detail-main.html' %}
+{% load static %}
+{% block title %}{{object.name}}'s details{% endblock %}
+
+{% block content %}
+<section class="main_body" id="main_body">
+    <div id="checkin-staff-container" class="modal-container-staff">
+        <!-- Modal content -->
+         
+        <div class="modal-content">
+          <!-- Modal body -->
+            <div class="staff_details_container">
+                <header class="staff_img_container">
+                    <div class="dp_container">
+                        {% if object.display_image %}
+                        <img src="{{object.display_image.url}}" alt="" class="dp">
+                        {% else %}
+                        <img src="" alt="" class="dp">
+                        {% endif %}
+                    </div>
+                    <div class="staff_special_details">
+                        <span>{{object.uid}}</span>
+                    </div>
+                </header>
+                <section class="staff_details_container_body">
+                    <article>
+                        <div class="caption">Full name</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.name}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Email</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.user.email}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Gender</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.gender}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Phone Number</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.phone}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Position</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.position}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Address</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.address}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                </section>
+                <div id="edit-stuff-container" class="modal-container"></div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock  %}

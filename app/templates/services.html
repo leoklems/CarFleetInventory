@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<section class="dashboard_section">
+<header class="lower_header">
+    <span>Tasks</span>
+</header>
+<div class="table_section">
+    <article class="table_controls">
+        
+        <a class="table_add_btn" 
+        href="{% url 'app:add_service' %}" ">
+            <i class="fas fa-plus"></i> Add Service
+    </a>
+        
+        <a href="" class="filter_btn">
+            <span><i class="fas fa-filter"></i></span> Filter <i class="fas fa-caret-down"></i>
+        </a>
+        <div id="add-task-container" class="modal-container"></div>
+    </article>
+    <article class="table_container table6">
+        <table>
+            <!-- <caption>Sample Table Header</caption> -->
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Vehicle</th>
+                    <th>Service Date</th>
+                    <th>type</th>
+                    <th>Next service date</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if services %}
+                {% for s in services %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'app:service_detail' s.id %}" id="object_detail">{{s.vehicle}}</a></td>
+                    <td>{{s.service_date}}</td>
+                    <td>{{s.type}}</td>
+                    <td>{{t.next_service_date}}</td>
+                    <td>{{t.cost}}</td>
+                </tr>
+                {%endfor%}
+                {% else %}
+                {% endif %}
+            </tbody>
+        </table>
+    </article>
+</div>
+</section>
+{% endblock  %}

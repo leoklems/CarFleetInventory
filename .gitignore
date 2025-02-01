@@ -1,0 +1,9 @@
+venv
+*.pyc
+startup.sh
+__pycache__
+*.env
+app/my_stuff
+# db.sqlite3
+node_modules
+*.mypy_cache

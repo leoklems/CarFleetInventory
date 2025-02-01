@@ -1,0 +1,77 @@
+
+
+{% extends 'forms/main.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% comment %} <main class="main_form main_login">
+    {% for m in messages %}
+        <div class="alert d" role="alert">
+            <strong>{{m}}</strong>
+           
+        </div>
+    {%endfor%}
+    <form method="POST" class="styled-form">
+        {% csrf_token %}
+        <header> Login</header>
+        <div class="login-form-group">
+            <label for="username"><i class="fas fa-user s"></i></label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+        <div class="login-form-group">
+            <label for="password"><i class="fas fa-lock s"></i></label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>   
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</main> {% endcomment %}
+<style type="text/css">
+    .main_login {
+        background-image:url('{% static "assets/images/logo_1.png" %}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    @media (max-width: 767px) {
+      /* Mobile */
+
+      html, body {
+        font-size: 13px;
+          }
+    }
+    
+</style>
+<main class="main_login">
+    <section class="login_container">
+        {% for m in messages %}
+        <div class="alert d" role="alert">
+            <strong class="form_error">{{m}}</strong>
+           
+        </div>
+    {%endfor%}
+        <header class="login_header">
+            <span>Login</span>
+        </header>
+        <article class="form_container">
+            <form method="post">
+                {% csrf_token %}
+                <div class="one_col">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
+                </div>
+                <div class="one_col">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div class="one_col">
+                    <input type="submit" value="Login">
+                </div>
+                
+            </form>
+        </article>
+    </section>
+    
+</main>
+{% endblock  %}

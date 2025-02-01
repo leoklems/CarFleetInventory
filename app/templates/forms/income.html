@@ -1,0 +1,44 @@
+<!-- Modal container -->
+<div id="add-finance-container" class="modal-container">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h2>New Income</h2>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="post" hx-post="{% url 'app:add_income' %}" hx-target="body" hx-swap="innerHTML">
+            {% csrf_token %}
+            <div class="one_col">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title">
+            </div>
+            
+            <div class="one_col">
+                <label for="details">Details</label>
+                <input type="text" id="details" name="details">
+            </div>
+
+            <div class="two_col">
+                <div class="one_col">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount">
+                </div>
+                
+                <div class="one_col">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date">
+                </div>
+            </div>
+            
+            
+            <div class="one_col">
+                <input type="submit" value="Add Income">
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </div>

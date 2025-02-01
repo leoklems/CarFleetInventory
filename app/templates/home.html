@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col gap-6">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <header class="font-bold text-lg">
+            Overview
+        </header>
+        <article class="table_controls">
+            <div class="table_controls_add_btns_div">
+                <a 
+                    class="table_add_btn"
+                    href="{% url 'app:add_car' %}" 
+                >
+                    <i class="fas fa-plus"></i> Add Car
+            </a>
+            </div>
+            
+            
+            <a href="" class="filter_btn">
+                <span><i class="fas fa-filter"></i></span> Filter <i class="fas fa-caret-down"></i>
+            </a>
+        </article>
+        <article class="table_container table5">
+            <table>
+                <!-- <caption>Sample Table Header</caption> -->
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Year(&#8358;)</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if vehicles %}
+                    {% for v in vehicles %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <a href="{% url 'app:car_detail' v.id %}" 
+                                id="object_detail" >
+                                {{v.name}}
+                            </a>
+                        </td>
+                        <td>{{v.serviceability}}</td>
+                        <td>{{v.year_purchased}}</td>
+                        <td>{{v.serial_number}}</td>
+                    </tr>
+                    {%endfor%}
+                    {% else %}
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </article>
+    </div>
+{% endblock  %}

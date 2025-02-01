@@ -1,0 +1,120 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'css.html' %}
+    <title>Home</title>
+</head>
+<body>
+    <article class="flex flex-col md:flex-row gap-6">
+        <div class="flex flex-col gap-2 px-4 py-6 bg-white roubded w-full md:w-1/4">
+            <div class="flex items-center gap-8 text-[#2460fe]">
+                <span class="rounded-full p-4 bg-blue-100">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+                <span class="text-lg font-bold">
+                    Number of cars
+                </span>
+            </div>
+            <div class="flex justify-between border-b pb-4">
+                <div>
+                    <span class="text-4xl font-bold">
+                        {{number_of_cars}}
+                    </span>
+                </div>
+            </div>
+            <div>
+                <span class="text-gray-400">
+                    This year
+                </span>
+            </div>
+        </div>
+        <div class="flex flex-col gap-2 px-4 py-6 bg-white roubded w-full md:w-1/4">
+            <div class="flex items-center gap-8 text-[#2460fe]">
+                <span class="rounded-full p-4 bg-blue-100">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+                <span class="text-lg font-bold">
+                    Projects
+                </span>
+            </div>
+            <div class="flex justify-between border-b pb-4">
+                <span class="text-4xl font-bold">
+                    <!-- {{projects.count}} -->
+                </span>
+                <div class="text-4xl font-bold">
+                    <!-- <span class="text-green-400">{{completed_projects}}</span>
+                    <span class="text-yellow-400">{{active_projects}}</span>
+                    <span class="text-red-400">{{overdue_projects}}</span> -->
+                </div>
+            </div>
+            <div>
+                <span class="text-gray-400">
+                    This year
+                </span>
+            </div>
+        </div>
+        <div class="flex flex-col gap-2 px-4 py-6 bg-white roubded w-full md:w-1/4">
+            <div class="flex items-center gap-8 text-[#2460fe]">
+                <span class="rounded-full p-4 bg-blue-100">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+                <span class="text-lg font-bold">
+                    Tasks
+                </span>
+            </div>
+
+            <div class="flex justify-between border-b pb-4">
+                <span class="text-4xl font-bold">
+                    2
+                </span>
+                <div class="text-4xl font-bold">
+                    <!-- <span class="text-green-400">{{completed_tasks}}</span>
+                    <span class="text-yellow-400">{{active_tasks}}</span>
+                    <span class="text-red-400">{{overdue_tasks}}</span> -->
+                </div>
+            </div>
+            <div>
+                <span class="text-gray-400">
+                    This year
+                </span>
+            </div>
+        </div>
+        <div class="flex flex-col gap-2 px-4 py-6 bg-white roubded w-full md:w-1/4">
+            <div class="flex items-center gap-8 text-[#2460fe]">
+                <span class="rounded-full p-4 bg-blue-100">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+                <span class="text-lg font-bold">
+                    Active staffs
+                </span>
+            </div>
+            <div class="flex justify-between border-b pb-4">
+                <div>
+                    <span class="text-4xl font-bold">
+                        <!-- {{staff.present|length}} -->
+                    </span>
+                </div>
+            </div>
+            <div>
+                <span class="text-gray-400">
+                    This year
+                </span>
+            </div>
+        </div>
+    </article>
+    <div class="text-blue-400">Welcome</div>
+    {% if vehicles %}
+        <div class="text-blue-400">Vehicles</div>
+        {% for v in vehicles %}
+        <div class="flex gap-4">
+            <h1>{{ v.name }}</h1>
+            <div class="text-green-400">{{v.serviceability}}</div>
+        </div>
+        {%endfor%}
+    {% else %}
+    {% endif %}
+</body>
+</html>

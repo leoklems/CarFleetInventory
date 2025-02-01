@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Staff{% endblock %}
+
+{% block content %}
+<section class="flex flex-col gap-6">
+    <header class="pt-4 font-bold text-lg">
+        <span>Staff</span>
+    </header>
+    <div class="flex flex-col gap-2">
+        <article class="flex justify-between items-center">
+            <div class="flex gap-2 items-center">
+                <a 
+                    class="flex gap-2 items-center px-4 py-2 bg-[#171731] rounded text-white"
+                    href="{% url 'app:new_staff' %}"
+                    
+                >
+                    <i class="fas fa-plus"></i> Add Staff
+                </a>
+                
+            </div>
+            
+            <a href="" class="flex gap-2 bg-white px-4 py-2">
+                <span class="text-blue-700"><i class="fas fa-filter"></i></span> Filter <i class="fas fa-caret-down"></i>
+            </a>
+        </article>
+        <div id="add-staff-container" class="modal-container"></div>
+        <div id="checkin-staff-container" class="modal-container"></div>
+        <article class="table_container table5">
+            <table>
+                <!-- <caption>Sample Table Header</caption> -->
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Full name</th>
+                        <th>Last checkin</th>
+                        <th>Last Checkout</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if staff %}
+                    {% for s in staff %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            
+                                {{s.name}}
+                            
+                        </td>
+                        <td>{{s.last_checkin}}</td>
+                        <td>{{s.last_checkout}}</td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    {%endfor%}
+                    {% else %}
+                    {% endif %}
+                    <!-- {% if others_staff %}
+                    {% for a in others_staff %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            
+                        </td>
+                        <td>{{a.last_checkin}}</td>
+                        <td>{{a.last_checkout}}</td>
+                        <td></td>
+                    </tr>
+                    {%endfor%}
+                    {% else %}
+                    {% endif %} -->
+                    
+                </tbody>
+            </table>
+        </article>
+    </div>
+</section>
+{% endblock  %}

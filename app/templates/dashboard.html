@@ -1,0 +1,200 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}{{object.name}}'s Dashboard{% endblock %}
+
+{% block content %}
+    <div class="rounded p-4 bg-white overflow-y-auto">
+        <div class="flex flex-col gap-6 px-2 py-4">
+            <header class="flex justify-between items-center">
+                <span class="font-bold text-lg">My Dashboard</span>
+                <div class="flex items-center gap-2 font-bold">
+                    <span class="name">{{object.name}}</span>/
+                    <span class="my-id">{{object.uid}}</span>
+                    <a href="{% url 'app:my_profile' request.user.staff_user.uid %}" 
+                        hx-get="{% url 'app:my_profile' request.user.staff_user.uid %}" 
+                        class="my-profile-link" hx-push-url=true hx-target="body" 
+                        hx-swap="innerHTML">View <i class="far fa-eye"></i>
+                    </a>
+                </div>
+            </header>
+            <section class="grid lg:grid-cols-3 gap-4">
+                <div class="grid gap-2 border border-[#48dffc] rounded pt-[10px] pr-[10px] pb-[20px] pl-[15px]">
+                    <div class="flex justify-between h-7">
+                        <div class="mt-auto">
+                            <span class="font-bold">
+                                Tasks
+                            </span>
+                            <span class="">
+                                
+                            </span>
+                        </div>
+                        <span class="mb-auto text-[0.9rem] text-[#48dffc]">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                    </div>
+                    <div class="flex justify-between text-2xl font-bold pr-4">
+                        <span class="">
+                            {{tasks|length}} 
+                        </span>
+                        <div class="">
+                            <span class="text-green-400">{{completed_tasks}}</span>
+                            <span class="">{{active_tasks}}</span>
+                            <span class="text-yellow-400"></span>
+                            <span class="text-red-400">{{overdue_tasks}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="flex justify-between text-[#48dffc] text-[0.9rem] items-bottom pt-[0.9rem]">
+                        <span class="">last 30 days</span>
+                        <span class="">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="grid gap-2 border border-[#48dffc] rounded pt-[10px] pr-[10px] pb-[20px] pl-[15px]">
+                    <div class="flex justify-between h-7">
+                        <div class="mt-auto">
+                            <span class="font-bold">
+                                Projects
+                            </span>
+                        <span class="">
+                            
+                        </span>
+                        </div>
+                        <span class="mb-auto text-[0.9rem] text-[#48dffc]">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                    </div>
+                    <div class="flex justify-between text-2xl font-bold pr-4">
+                        <span class="">
+                            {{projects|length}} 
+                        </span>
+                        <div class="">
+                            <span class="text-green-400">{{completed_projects}}</span>
+                            <span class="">{{active_projects}}</span>
+                            <span class="text-yellow-400"></span>
+                            <span class="text-red-400">{{overdue_projects}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="flex justify-between text-[#48dffc] text-[0.9rem] items-bottom pt-[0.9rem]">
+                        <span class="">last 30 days</span>
+                        <span class="">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="grid gap-2 border border-[#48dffc] rounded pt-[10px] pr-[10px] pb-[20px] pl-[15px]">
+                    <div class="flex justify-between h-7">
+                        <div class="mt-auto">
+                            <span class="font-bold">
+                                <!-- {% now "jS F Y" %} -->
+                                {% now "d/m/Y" %}
+                            </span>
+                        <span class="">
+                            
+                        </span>
+                        </div>
+                        <span class="mb-auto text-[0.9rem] text-[#48dffc]">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                    </div>
+                    <div class="flex justify-between text-2xl font-bold pr-4">
+                        {% now "H:i" %}
+                    </div>
+                    <div class="flex justify-between text-[#48dffc] text-[0.9rem] items-bottom pt-[0.9rem]">
+                        <span class="">Date and Time</span>
+                        <span class="">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
+            {% if projects %}
+            <section class="grid gap-4 border border-[#48dffc] rounded pt-[10px] pr-[10px] pb-[20px] pl-[15px]">
+                <header class="flex items-center justify-between border-b border-[#48dffc] py-2">
+                    <article class="">
+                        My Projects
+                    </article>
+                    <article class="flex gap-2">
+                        <button class="flex gap-2 items-center bg-[#bfe5f98a] cursor-pointer rounded p-2">
+                            <span>Sort/Filter</span>
+                            <i class="fas fa-sliders-h"></i>
+                        </button>
+                        <button class="flex gap-2 items-center bg-[#bfe5f98a] cursor-pointer rounded p-2">
+                            <span>Sort order</span>
+                            <i class="fas fa-angle-down"></i>
+                        </button>
+                    </article>
+                </header>
+                <article class="grid gap-4 items-center px-4 py-2">
+                    
+                    {% for p in projects %}
+                    <div class="grid grid-cols-6 items-center">
+                        <a  href="{% url 'app:project_detail' p.id %}" 
+                            hx-get="{% url 'app:project_detail' p.id %}" 
+                            hx-push-url=true 
+                            class="col-span-4 grid gap-2" 
+                            hx-target="body" 
+                            hx-swap="innerHTML">
+                            <span class='w-fit rounded px-2 py-1 {% if p.is_past_due %}bg-red-400{% else %}{% endif %}'>{{p.title}}</span>
+                            <span class="">{{p.description}}</span>
+                        </a>
+                        <div class="">{{p.completion_date}}</div>
+                        <div class="">{{p.status}}</div>
+                    </div>
+                    {%endfor%}
+                    
+                    
+                </article>
+            </section>
+            {% else %}
+            {% endif %}
+            {% if tasks %}
+            <section class="grid gap-4 border border-[#48dffc] rounded pt-[10px] pr-[10px] pb-[20px] pl-[15px]">
+                <header class="flex items-center justify-between border-b border-[#48dffc] py-2">
+                    <article class="">
+                        My Tasks
+                    </article>
+                    <article class="flex gap-2">
+                        <button class="flex gap-2 items-center bg-[#bfe5f98a] cursor-pointer rounded p-2">
+                            <span>Sort/Filter</span>
+                            <i class="fas fa-sliders-h"></i>
+                        </button>
+                        <button class="flex gap-2 items-center bg-[#bfe5f98a] cursor-pointer rounded p-2">
+                            <span>Sort order</span>
+                            <i class="fas fa-angle-down"></i>
+                        </button>
+                    </article>
+                </header>
+                <article class="grid gap-4 items-center px-4 py-2">
+                    
+                    {% for t in tasks %}
+                    <div class="grid grid-cols-6 items-center">
+                        <a  href="{% url 'app:task_detail' t.id %}" 
+                            hx-get="{% url 'app:task_detail' t.id %}" 
+                            hx-push-url=true 
+                            class="col-span-4 grid gap-2" 
+                            hx-target="body" 
+                            hx-swap="innerHTML">
+                            <span class='w-fit rounded px-2 py-1 
+                            {% if t.is_past_due %}bg-red-400{% else %}{% endif %}'>
+                                {{t.title}}
+                            </span>
+                            <span class="">{{t.description}}</span>
+                        </a>
+                        <div class="">{{t.completion_date}}</div>
+                        <div class="">{{t.status}}</div>
+                    </div>
+                    {%endfor%}
+                    
+                    
+                </article>
+            </section>
+            {% else %}
+            {% endif %}
+            <div id="edit-stuff-container" class="modal-container"></div>
+        </div>
+        
+    </div>
+{% endblock  %}

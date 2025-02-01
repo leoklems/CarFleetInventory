@@ -1,0 +1,95 @@
+{% extends 'detail-main.html' %}
+{% load static %}
+{% block title %}{{object.title}}'s details{% endblock %}
+
+{% block content %}
+<section class="main_body" id="main_body">
+    <!-- <i id="menu-show" class="fas fa-bars"></i> -->
+    <div id="checkin-staff-container" class="modal-container-staff">
+        <!-- Modal content -->
+         
+        <div class="modal-content">
+          <!-- Modal body -->
+            <div class="object_details_container">
+                <header class="object_detail_header_container">
+                    <caption class="dp_container">
+                        Car Details
+                    </caption>
+                    <!-- <div class="staff_special_details">
+                        <span>OC3475</span>
+                    </div> -->
+                </header>
+                <section class="object_details_container_body">
+                    <article>
+                        <div class="caption">Car Name</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.name}}</span>
+                            <span class="edit"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    
+                    <article>
+                        <div class="caption">Serial Number</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.serial_number}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article class="detail_description_container">
+                        <div class="caption">Description</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.description}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Year Purchased</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.year_purchased}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Year Alloted</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.year_alloted}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Agency</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.agency}}</span>
+                            <span class="edit" hx-target="#edit-stuff-container" hx-swap="outerHTML"><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Location</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.location_of_deployment}}</span>
+                            <span class="edit"></i></span>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Tracker status</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.tracker_status}}</span>
+                            
+                        </div>
+                    </article>
+                    <article>
+                        <div class="caption">Serviceability</div>
+                        <div class="staff_detail_content">
+                            <span>{{object.serviceability}}</span>
+                            <span class="edit""><i class="fas fa-edit"></i></span>
+                        </div>
+                    </article>
+                    
+                </section>
+                <div id="edit-stuff-container" class="modal-container"></div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock  %}
