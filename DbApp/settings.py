@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-6(9al*%55+x0uy!*m+*$auy5xswq=hds82e*#rl7=-rea9ak3g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS: list[str] = ["carfleetinventory-app.onrender.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
