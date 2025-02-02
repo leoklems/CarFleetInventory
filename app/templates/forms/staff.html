@@ -3,14 +3,14 @@
 {% block title %}Add Staff{% endblock %}
 
 {% block content %}
-<div id="add-staff-container" class="flex fixed bg-black justify-center left-0 right-0 w-full">
+<div id="add-staff-container" class="flex fixed bg-gray-400 justify-center left-0 right-0 w-full h-full">
     <!-- Modal content -->
     <!-- <div class="flex flex-col overflow-y-auto max-h-[400px] m-auto w-[40%] border-radius-[10%]"> -->
-    <div class="modal-content my-0 md:my-auto">
+    <div class="bg-[#bfe5f98a] w-full md:w-[40%] p-6 rounded overflow-y-auto h-[90%] md:max-h-[400px] m-auto">
       <!-- Modal header -->
       <div class="modal-header">
         <h2>Add Staff</h2>
-        <button class="close-modal my-auto" id="close-modal">&times;</button>
+        <a href="{% url 'app:staff' %}" class="close-modal" id="close-modal">&times;</a>
       </div>
       <!-- Modal body -->
       <div class="modal-body">

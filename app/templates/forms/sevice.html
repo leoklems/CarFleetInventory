@@ -3,13 +3,13 @@
 {% block title %}Add Staff{% endblock %}
 
 {% block content %}
-<div id="add-task-container" class="flex fixed bg-black justify-center left-0 right-0 w-full">
+<div id="add-task-container" class="flex fixed bg-gray-400 justify-center left-0 right-0 w-full h-full">
     <!-- Modal content -->
-    <div class="modal-content">
-      <!-- Modal header -->
+    <!-- <div class="modal-content"> -->
+    <div class="bg-[#bfe5f98a] w-full md:w-[40%] p-6 rounded overflow-y-auto h-[90%] md:max-h-[400px] m-auto">
       <div class="modal-header">
         <h2>New Service</h2>
-        <button class="close-modal" id="close-modal">&times;</button>
+        <a href="{% url 'app:services' %}" class="close-modal" id="close-modal">&times;</a>
       </div>
       <!-- Modal body -->
       <div class="modal-body">
@@ -63,7 +63,7 @@
             
             
             <div class="one_col">
-                <input type="submit" value="Create Task">
+                <input type="submit" value="Save">
             </div>
             
         </form>
