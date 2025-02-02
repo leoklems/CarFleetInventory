@@ -15,30 +15,14 @@
       <div class="modal-body">
         <form method="post" >
             {% csrf_token %}
-            <div class="one_col">
-                <label for="vehicle">Vehicle</label>
-                {{form.vehicle}}
-            </div>
             <div class="two_col">
                 <div class="one_col">
-                    <label for="service_date">Service date</label>
-                    <input type="date" id="service_date" name="service_date">
+                    <label for="vehicle">Vehicle</label>
+                    {{form.vehicle}}
                 </div>
-                
                 <div class="one_col">
-                    <label for="next_service_date">Next Servive date</label>
-                    <input type="date" id="next_service_date" name="next_service_date">
-                </div>
-            </div>
-            <div class="two_col">
-                <div class="one_col">
-                    <label for="overnaul_date">Overhaul date</label>
-                    <input type="date" id="overnaul_date" name="overnaul_date">
-                </div>
-                
-                <div class="one_col">
-                    <label for="next_overnaul_date">Next Overhaul date</label>
-                    <input type="date" id="next_overnaul_date" name="next_overnaul_date">
+                    <label for="type">Type</label>
+                    {{form.type}}
                 </div>
             </div>
             <!-- <div class="one_col">
@@ -47,8 +31,8 @@
             </div> -->
             <div class="two_col">
                 <div class="one_col">
-                    <label for="type">Type</label>
-                    {{form.type}}
+                    <label for="service_date">Service date</label>
+                    <input type="date" id="service_date" name="service_date">
                 </div>
                 <div class="one_col">
                     <label for="cost">Cost</label>

@@ -17,14 +17,14 @@ class VehicleFilter(django_filters.FilterSet):
         strict = False  # Set strict to False to allow no filtering when no parameters are present
 
 
-# class StockingFilter(django_filters.FilterSet):
-#     # search = CharFilter(lookup_expr='icontains')
-#     # icontains means ignore case sensetivity
-#     date = django_filters.DateFromToRangeFilter()
+class ServiceRecordFilter(django_filters.FilterSet):
+    # search = CharFilter(lookup_expr='icontains')
+    # icontains means ignore case sensetivity
+    service_date = django_filters.DateFromToRangeFilter()
 
-#     class Meta:
-#         model = Stock
-#         fields = ["item", "staff", "kind", "date"]
+    class Meta:
+        model = ServiceRecord
+        fields = ["vehicle", "type", "scheduled", "service_date", "overhaul_date"]
 
 
 # class VisitorFilter(django_filters.FilterSet):

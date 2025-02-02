@@ -23,7 +23,7 @@ from .filters import *
 from django.db.models import Count
 from django.db.models import Q
 from django.utils import timezone
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 def random_int():
     random_ref = randint(0, 9999999999)
@@ -272,45 +272,52 @@ class AddCar(LoginRequiredMixin, CreateView):
         return super().form_invalid(form)
 
 
-class AddServiceRecord(LoginRequiredMixin, CreateView):
-    model = ServiceRecord
-    form_class = ServiceRecordForm
-    template_name = 'forms/sevice.html'
-    success_url = reverse_lazy('app:home')
+# class AddServiceRecord(LoginRequiredMixin, CreateView):
+#     model = ServiceRecord
+#     form_class = ServiceRecordForm
+#     template_name = 'forms/sevice.html'
+#     success_url = reverse_lazy('app:home')
 
-    def form_valid(self, form):
-        # Get the submitted form values
-        submitted_values = form.cleaned_data
-        print("Form submitted successfully with values:", submitted_values)
+#     def form_valid(self, form):
+#         # Get the submitted form values
+#         submitted_values = form.cleaned_data
+#         print("Form submitted successfully with values:", submitted_values)
 
-        # Perform any additional actions with the submitted values
-        # For example, you can log them or send an email notification
+#         # Perform any additional actions with the submitted values
+#         # For example, you can log them or send an email notification
 
-        return super().form_valid(form)
+#         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        # Handle form errors
-        errors = form.errors
-        print("Form submission failed with errors:", errors)
+#     def form_invalid(self, form):
+#         # Handle form errors
+#         errors = form.errors
+#         print("Form submission failed with errors:", errors)
 
-        # Perform any additional actions with the errors
-        # For example, you can log them or display custom error messages
+#         # Perform any additional actions with the errors
+#         # For example, you can log them or display custom error messages
 
-        return super().form_invalid(form)
+#         return super().form_invalid(form)
 
 
 class ServiceRecordView(LoginRequiredMixin, View):
     
     def get(self, *args, **kwargs):
         services = ServiceRecord.objects.all()
-        # product_images = ProductImage.objects.filter(lead=True)
+        services_ = ServiceRecord.objects.none()
+        my_filter = ServiceRecordFilter(self.request.GET, queryset=services_)
 
         context = {
             'services': services,
+            'filter': my_filter,
             # 'product_images': product_images,
         }
-        # print([x.product for x in product_images])
-
+        if any(self.request.GET.values()):
+            # If parameters are present, apply the filter to the empty queryset
+            my_filter = ServiceRecordFilter(self.request.GET)
+            context['filter_'] = my_filter
+            # queryset = filter.qs
+        print(self.request.GET)
+        print(my_filter.qs)
         return render(self.request, 'services.html', context)
 
 class ServiceRecordDetailView(LoginRequiredMixin, DetailView):
@@ -318,68 +325,60 @@ class ServiceRecordDetailView(LoginRequiredMixin, DetailView):
     model = ServiceRecord
     template_name = 'service-details.html'
 
-# class AddCar(LoginRequiredMixin, View):
-#     # permission_required = 'users.add_user'
+class AddServiceRecord(LoginRequiredMixin, View):
+    # permission_required = 'users.add_user'
 
-#     def get(self, request):
-#         form = CarForm()
+    def get(self, request):
+        form = ServiceRecordForm()
 
-#         context = {
-#             'form': form,
-#         }
-#         return render(request, 'forms/car.html', context)
+        context = {
+            'form': form,
+        }
+        return render(request, 'forms/sevice.html', context)
 
-#     def post(self, request, *args, **kwargs):
-#         # print(request.POST)
-#         form = CarForm(request.POST)
-#         print(request.POST)
+    def post(self, request, *args, **kwargs):
+        # print(request.POST)
+        form = ServiceRecordForm(request.POST)
+        print(request.POST)
 
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             name = form.cleaned_data.get('name')
-#             serial_number = form.cleaned_data.get('serial_number')
-#             year_purchased = form.cleaned_data.get('year_purchased')
-#             year_alloted = form.cleaned_data.get('year_alloted')
-#             agency = form.cleaned_data.get("agency")
-#             location_of_deployment = form.cleaned_data.get('location_of_deployment')
-#             description = form.cleaned_data.get('description')
-#             tracker_status = form.cleaned_data.get('tracker_status')
-#             serviceability = form.cleaned_data.get('serviceability')
-            
-#             exists = False
-#             try:
-#                 Vehicle.objects.get(serial_number=serial_number)
-#                 exists = True
-#             except ObjectDoesNotExist:
-#                 pass
-#             if exists:
-#                 messages.warning(request, 'This serial_number has already been registered, try another serial_number')
-#                 context = {
-#                     'form': form,
-#                 }
-#                 return render(request, 'forms/car.html', context)
-#             else:
+        if form.is_valid():
+            vehicle = form.cleaned_data.get('vehicle')
+            type = form.cleaned_data.get('type')
+            service_date = form.cleaned_data.get('service_date')
+            cost = form.cleaned_data.get('cost')
+            scheduled = form.cleaned_data.get("scheduled")
+            if type == "Overhaul":
+                overhaul_date = service_date
+                next_overhaul_date = overhaul_date+timedelta(90)
+                service = ServiceRecord.objects.create(
+                    vehicle=vehicle, 
+                    type=type, 
+                    overhaul_date=overhaul_date, 
+                    next_overhaul_date=next_overhaul_date, 
+                    cost=cost, 
+                    scheduled=scheduled,
+                    )
                 
-#                 car = Vehicle.objects.create(
-#                     name=name, 
-#                     serial_number=serial_number, 
-#                     year_purchased=year_purchased, 
-#                     year_alloted=year_alloted, 
-#                     agency=agency, 
-#                     location_of_deployment=location_of_deployment, 
-#                     description=description,
-#                     # tracker_status=tracker_status,
-#                     # serviceability=serviceability
-#                     )
+                service.save()
+            else:
+                next_service_date = service_date+timedelta(30)
+                service = ServiceRecord.objects.create(
+                    vehicle=vehicle, 
+                    type=type, 
+                    service_date=service_date, 
+                    next_service_date=next_service_date, 
+                    cost=cost,
+                    scheduled=scheduled, 
+                    )
                 
-#                 car.save()
-#                 return redirect('app:car_detail', pk = car.id)
+                service.save()
+            return redirect('app:service_detail', pk = service.id)
 
-#         else:
-#             messages.warning(request, 'Fill out all the necessary details')
-#             print(form.errors)
-#             context = {
-#                 'form': form,
-#             }
-#             return render(request, 'forms/car.html', context)
+        else:
+            messages.warning(request, 'Fill out all the necessary details')
+            print(form.errors)
+            context = {
+                'form': form,
+            }
+            return render(request, 'forms/sevice.html', context)
 

@@ -65,6 +65,18 @@ class Vehicle(models.Model):
     def get_most_recent_service(self):
         """Fetch the most recent service record for this vehicle."""
         return self.vehicle_service_record.order_by('-service_date').first()
+    
+    @property
+    def get_most_recent_service_date(self):
+        """Fetch the most recent service date for this vehicle."""
+        recent_service = self.get_most_recent_service()
+        return recent_service.service_date
+    
+    @property
+    def get_next_service_date(self):
+        """Fetch the most recent service date for this vehicle."""
+        recent_service = self.get_most_recent_service()
+        return recent_service.next_service_date
 
     @property
     def is_service_due(self):
@@ -83,8 +95,8 @@ class ServiceRecord(models.Model):
         ('Overhaul', 'Overhaul'),
     )
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="vehicle_service_record")
-    overnaul_date = models.DateField(null=True, blank=True)
-    next_overnaul_date = models.DateField(null=True, blank=True)
+    overhaul_date = models.DateField(null=True, blank=True)
+    next_overhaul_date = models.DateField(null=True, blank=True)
     service_date = models.DateField(null=True, blank=True)
     next_service_date = models.DateField(null=True, blank=True)
     type = models.CharField(max_length=15, choices=TYPE_CHOICES, default='Basic')

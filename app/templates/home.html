@@ -10,10 +10,9 @@
             Overview
         </header>
         <article>
-            
-            <form class="order_fillter_container">
-                <h4>Car fillter</h4>
-                <div class="filter_items">
+            <form class="flex flex-col gap-4">
+                <h4 class="font-bold">Car fillter</h4>
+                <div class="flex flex-col md:flex-row gap-4 w-full">
                     <div class="fillter_item">
                         <label for="staff">Name:</label>
                         {% render_field filter.form.name class="form-control" %}
@@ -37,12 +36,11 @@
                         <input type="date" name="date_before" id="date">
                         {% comment %} {% render_field filter.form.date class="form-control" %} {% endcomment %}
                     </div> -->
-                    <button type="submit" class="bg-green-600 px-4 py-2 mt-4 rounded">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                      </button>
                 </div>
+                <button type="submit" class="bg-green-600 px-4 py-2 mt-4 rounded w-fit">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
             </form>
-
         </article>
         {% if filter_ %}
         <article class="table_container table5">
@@ -94,14 +92,14 @@
         </article>
         <article class="table_container table5">
             <table>
-                <!-- <caption>Sample Table Header</caption> -->
+                <!-- <caption>Sample Table Header</caption>(&#8358;) -->
                 <thead>
                     <tr>
                         <th></th>
                         <th>Name</th>
-                        <th>Type</th>
-                        <th>Year(&#8358;)</th>
-                        <th>Date</th>
+                        <th>Serial Number</th>
+                        <th>Last Service Date</th>
+                        <th>Last Service Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,8 +114,8 @@
                             </a>
                         </td>
                         <td>{{v.serviceability}}</td>
-                        <td>{{v.year_purchased}}</td>
-                        <td>{{v.serial_number}}</td>
+                        <td>{{v.get_most_recent_service_date}}</td>
+                        <td>{{v.get_next_service_date}}</td>
                     </tr>
                     {%endfor%}
                     {% else %}

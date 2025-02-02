@@ -42,9 +42,7 @@
                     <tr>
                         <td>{{forloop.counter}}</td>
                         <td>
-                            
-                                {{s.name}}
-                            
+                            <a href="{% url 'app:staff_profile' s.uid %}" id="object_detail">{{s.name}}</a>
                         </td>
                         <td>{{s.last_checkin}}</td>
                         <td>{{s.last_checkout}}</td>

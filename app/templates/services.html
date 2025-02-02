@@ -1,12 +1,110 @@
 {% extends 'main.html' %}
 {% load static %}
-{% block title %}Tasks{% endblock %}
+{% load widget_tweaks %}
+{% block title %}Sirvice{% endblock %}
 
 {% block content %}
 <section class="dashboard_section">
 <header class="lower_header">
-    <span>Tasks</span>
+    <span>Services</span>
 </header>
+<article>
+    <form class="flex flex-col gap-4">
+        <h4 class="font-bold">Service Record fillter</h4>
+        <div class="flex flex-col md:flex-row gap-4 w-full">
+            <div class="fillter_item">
+                <label for="staff">Vehicle:</label>
+                {% render_field filter.form.vehicle class="form-control" %}
+            </div>
+            <div class="fillter_item">
+                <label for="gender">Type:</label>
+                {% render_field filter.form.type class="form-control" %}
+            </div>
+            <div class="fillter_item">
+                <label for="table">If Scheduled:</label>
+                {% render_field filter.form.scheduled class="form-control" %}
+            </div>
+            <!-- <div class="fillter_item">
+                <label for="table">Year Alloted:</label>
+                {% render_field filter.form.year_alloted class="form-control" %}
+            </div> -->
+            <div class="fillter_item">
+                <label for="date">Last Service Date Range:</label>
+                <input type="date" name="service_date_after" id="service_date">
+                 - 
+                <input type="date" name="service_date_before" id="service_date">
+                {% comment %} {% render_field filter.form.date class="form-control" %} {% endcomment %}
+            </div>
+            <div class="fillter_item">
+                <label for="date">Last Overhaul Date Range:</label>
+                <input type="date" name="overhaul_date_after" id="overhaul_date">
+                 - 
+                <input type="date" name="overhaul_date_before" id="overhaul_date">
+                {% comment %} {% render_field filter.form.date class="form-control" %} {% endcomment %}
+            </div>
+        </div>
+        <button type="submit" class="bg-green-600 px-4 py-2 mt-4 rounded w-fit">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+    </form>
+</article>
+{% if filter_ %}
+<div class="table_section">
+    <article class="table_controls">
+        
+        <a class="table_add_btn" 
+        href="{% url 'app:add_service' %}" ">
+            <i class="fas fa-plus"></i> Add Service
+    </a>
+        
+        <a href="" class="filter_btn">
+            <!-- <span><i class="fas fa-filter"></i></span> Filter <i class="fas fa-caret-down"></i> -->
+        </a>
+    </article>
+    <article class="table_container table6 w-full overflow-x-auto">
+        <table>
+            <!-- <caption>Sample Table Header</caption> -->
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Vehicle</th>
+                    <th>Service Date</th>
+                    <th>type</th>
+                    <th class="flex whitespace-nowrap">Next service date</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if filter_ %}
+                {% for s in filter_.qs %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'app:service_detail' s.id %}" id="object_detail">{{s.vehicle}}</a></td>
+                    <td>
+                        {% if s.service_date %}
+                        {{s.service_date}}
+                        {% else %}
+                        {{s.overhaul_date}}
+                        {% endif %}
+                    </td>
+                    <td>{{s.type}}</td>
+                    <td>
+                        {% if s.next_service_date %}
+                        {{s.next_service_date}}
+                        {% else %}
+                        {{s.next_overhaul_date}}
+                        {% endif %}
+                    </td>
+                    <td>{{s.cost}}</td>
+                </tr>
+                {%endfor%}
+                {% else %}
+                {% endif %}
+            </tbody>
+        </table>
+    </article>
+</div>
+{%else%}
 <div class="table_section">
     <article class="table_controls">
         
@@ -40,8 +138,8 @@
                     <td><a href="{% url 'app:service_detail' s.id %}" id="object_detail">{{s.vehicle}}</a></td>
                     <td>{{s.service_date}}</td>
                     <td>{{s.type}}</td>
-                    <td>{{t.next_service_date}}</td>
-                    <td>{{t.cost}}</td>
+                    <td>{{s.next_service_date}}</td>
+                    <td>{{s.cost}}</td>
                 </tr>
                 {%endfor%}
                 {% else %}
@@ -50,5 +148,6 @@
         </table>
     </article>
 </div>
+{%endif%}
 </section>
 {% endblock  %}

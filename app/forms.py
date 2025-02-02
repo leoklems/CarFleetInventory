@@ -100,14 +100,14 @@ class ServiceRecordForm(forms.ModelForm):
     class Meta:
         model = ServiceRecord
         fields = '__all__'
-        exclude = [""]
+        exclude = ["next_service_date, next_overnaul_date"]
 
         widgets = {
             'type': forms.Select(choices=ServiceRecord.TYPE_CHOICES),
             'overnaul_date': forms.DateInput(attrs={'type': 'date'}),
-            'next_overnaul_date': forms.DateInput(attrs={'type': 'date'}),
+            # 'next_overnaul_date': forms.DateInput(attrs={'type': 'date'}),
             'service_date': forms.DateInput(attrs={'type': 'date'}),
-            'next_service_date': forms.DateInput(attrs={'type': 'date'}),
+            # 'next_service_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
 # class ServiceRecordForm(ModelForm):
