@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'app',
+    'django_filters',
+    'widget_tweaks'
 ]
 
 SITE_ID = 1

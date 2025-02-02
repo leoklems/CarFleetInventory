@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -8,6 +9,74 @@
         <header class="font-bold text-lg">
             Overview
         </header>
+        <article>
+            
+            <form class="order_fillter_container">
+                <h4>Car fillter</h4>
+                <div class="filter_items">
+                    <div class="fillter_item">
+                        <label for="staff">Name:</label>
+                        {% render_field filter.form.name class="form-control" %}
+                    </div>
+                    <div class="fillter_item">
+                        <label for="gender">Serial Number:</label>
+                        {% render_field filter.form.serial_number class="form-control" %}
+                    </div>
+                    <div class="fillter_item">
+                        <label for="table">Year of pruchase:</label>
+                        {% render_field filter.form.year_purchased class="form-control" %}
+                    </div>
+                    <div class="fillter_item">
+                        <label for="table">Year Alloted:</label>
+                        {% render_field filter.form.year_alloted class="form-control" %}
+                    </div>
+                    <!-- <div class="fillter_item">
+                        <label for="date">Date Range:</label>
+                        <input type="date" name="date_after" id="date">
+                         - 
+                        <input type="date" name="date_before" id="date">
+                        {% comment %} {% render_field filter.form.date class="form-control" %} {% endcomment %}
+                    </div> -->
+                    <button type="submit" class="bg-green-600 px-4 py-2 mt-4 rounded">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                      </button>
+                </div>
+            </form>
+
+        </article>
+        {% if filter_ %}
+        <article class="table_container table5">
+            <table>
+                <!-- <caption>Sample Table Header</caption> -->
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Year(&#8358;)</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in filter_.qs %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <a href="{% url 'app:car_detail' v.id %}" 
+                                id="object_detail" >
+                                {{v.name}}
+                            </a>
+                        </td>
+                        <td>{{v.serviceability}}</td>
+                        <td>{{v.year_purchased}}</td>
+                        <td>{{v.serial_number}}</td>
+                    </tr>
+                    {%endfor%}
+                    
+                </tbody>
+            </table>
+        </article>
+        {%else%}
         <article class="table_controls">
             <div class="table_controls_add_btns_div">
                 <a 
@@ -57,5 +126,6 @@
                 </tbody>
             </table>
         </article>
+        {%endif%}
     </div>
 {% endblock  %}

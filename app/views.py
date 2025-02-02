@@ -19,6 +19,7 @@ from django.core.mail import send_mail
 
 from .forms import *
 from .models import *
+from .filters import *
 from django.db.models import Count
 from django.db.models import Q
 from django.utils import timezone
@@ -161,8 +162,8 @@ class Home(View):
         print(day)
         vehicles = Vehicle.objects.all()
         number_of_cars = vehicles.count()
-        # tasks = Task.objects.all()
-        # staffs = Staff.objects.all()
+        cars_ = Vehicle.objects.none()
+        my_filter = VehicleFilter(self.request.GET, queryset=cars_)
         # completed_projects = len([i for i in projects if i.status == "COMPLETED"])
         # active_projects = len([i for i in projects if i.status not in ["COMPLETED",  "CANCLED", "SUSPENDED"]])
         # overdue_projects = len([i for i in projects if date.today() > i.completion_date])
@@ -173,8 +174,7 @@ class Home(View):
         context = {
             'vehicles': vehicles,
             'number_of_cars': number_of_cars,
-            # 'active_projects': active_projects,
-            # 'overdue_projects': overdue_projects,
+            'filter': my_filter,
             # 'tasks': tasks,
             # 'completed_tasks': completed_tasks,
             # 'active_tasks': active_tasks,
@@ -182,11 +182,13 @@ class Home(View):
             # 'staffs': staffs,
             # 'product_images': product_images,
         }
-        # orders_ = TableOrder.objects.filter(paid=True, date__month=timezone.now().month).values()
-        # incomes = Income.objects.filter(date__month=timezone.now().month)
-        # expences = Expenses.objects.filter(date__month=timezone.now().month)
-        # print("current month :", timezone.now().month)
-        # print(orders_)
+        if any(self.request.GET.values()):
+            # If parameters are present, apply the filter to the empty queryset
+            my_filter = VehicleFilter(self.request.GET)
+            context['filter_'] = my_filter
+            # queryset = filter.qs
+        print(self.request.GET)
+        print(my_filter.qs)
         
         # context['expenses_data'] = expenses_data
         # print(alt_data_labels)
